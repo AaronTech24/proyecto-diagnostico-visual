@@ -10,22 +10,43 @@ Se reutiliza en:
 Autor: Grupo 2 - Inteligencia Artificial
 """
 
+# ── Importaciones generales ───────────────────────────────────────────────
 import os
+import shutil
 import random
+import zipfile
+import yaml
+import numpy as np
+import matplotlib.pyplot as plt
+import cv2
+from PIL import Image
 from collections import Counter
 
-import numpy as np
 import torch
 import torch.nn as nn
-from torch.utils.data import Dataset
+import torch.nn.functional as F
 from torchvision import transforms, models
-from PIL import Image
+from torch.utils.data import DataLoader, Dataset
+from ultralytics import YOLO
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f'Dispositivo de computo: {device}')
+if device.type == 'cuda':
+    print(f'GPU: {torch.cuda.get_device_name(0)}')
 
 
 # ───────────────────────────── Constantes globales ──────────────────────────
 
 CLASES_CLASIFICACION = ['visible_legible', 'deteriorada', 'poco_visible']
-CLASES_YOLO = ['senal_transito', 'grafiti_o_pintura', 'oxido_o_corrosion', 'vegetacion_obstruyendo']
+CLASES_YOLO = [
+    'senal_vertical',          # 0: señal de tránsito vertical (cualquier tipo)
+    'senal_deteriorada',       # 1: señal con daño físico visible (golpe, óxido, grafiti)
+    'senal_obstruida',         # 2: señal tapada por objeto, publicidad u otro elemento
+    'semaforo',                # 3: semáforo (peatonal o vehicular)
+    'paso_cebra_visible',      # 4: paso peatonal en buen estado (líneas nítidas)
+    'paso_cebra_desgastado',   # 5: paso peatonal con marcas borrosas o desgastadas
+    'vegetacion_obstruyendo',  # 6: vegetación que cubre parcialmente una señal o semáforo
+]
 
 IMG_SIZE_CLASIFICACION = 512
 IMG_SIZE_YOLO = 640
