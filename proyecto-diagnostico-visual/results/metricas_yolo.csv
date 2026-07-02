@@ -1,0 +1,8 @@
+clase,ap50,precision_global,recall_global,map50_global,map5095_global
+senal_vertical,0.0006,0.3379,0.0714,0.0588,0.0312
+senal_deteriorada,0.0785,0.3379,0.0714,0.0588,0.0312
+senal_obstruida,0.3001,0.3379,0.0714,0.0588,0.0312
+semaforo,0.0323,0.3379,0.0714,0.0588,0.0312
+paso_cebra_visible,0.0,0.3379,0.0714,0.0588,0.0312
+paso_cebra_desgastado,0.0,0.3379,0.0714,0.0588,0.0312
+vegetacion_obstruyendo,0.0,0.3379,0.0714,0.0588,0.0312
