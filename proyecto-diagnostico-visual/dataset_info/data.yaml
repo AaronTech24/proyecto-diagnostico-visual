@@ -2,12 +2,12 @@ train: ../train/images
 val: ../valid/images
 test: ../test/images
 
-nc: 4
-names: ['grafiti_o_pintura', 'oxido_o_corrosion', 'senal_transito', 'vegetacion_obstruyendo']
+nc: 7
+names: ['paso_cebra_desgastado', 'paso_cebra_visible', 'semaforo', 'senal_deteriorada', 'senal_obstruida', 'senal_vertical', 'vegetacion_obstruyendo']
 
 roboflow:
   workspace: dtecnologiafau06s-workspace
-  project: senalestransito-g2
+  project: senalestransito-g2-i5gjp
   version: 1
   license: CC BY 4.0
-  url: https://universe.roboflow.com/dtecnologiafau06s-workspace/senalestransito-g2/dataset/1
+  url: https://universe.roboflow.com/dtecnologiafau06s-workspace/senalestransito-g2-i5gjp/dataset/1
